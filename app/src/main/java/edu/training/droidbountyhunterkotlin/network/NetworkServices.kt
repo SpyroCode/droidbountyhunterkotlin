@@ -7,13 +7,17 @@ import org.json.JSONException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.io.*
+const val GET = "GET"
+const val POST = "POST"
+const val CONTENT_TYPE = "Content-Type"
+const val TYPE_JSON = "application/json"
 
 class NetworkServices (val listener: onTaskListener) : AsyncTask<String, Void, Boolean>() {
 
     private val TAG = NetworkServices::class.java.simpleName
 
-    private val endpoint_fugitivos = "http://201.168.207.210/services/droidBHServices.svc/fugitivos"
-    private val endpoint_atrapados = "http://201.168.207.210/services/droidBHServices.svc/atrapados"
+    private val endpoint_fugitivos = "http://3.13.226.218/droidBHServices.svc/fugitivos" //GET
+    private val endpoint_atrapados = "http://3.13.226.218/droidBHServices.svc/atrapados" //POST
 
     private var JSONStr: String = ""
     private var tipo: SERVICE_TYPE = SERVICE_TYPE.FUGITIVOS
@@ -42,6 +46,7 @@ class NetworkServices (val listener: onTaskListener) : AsyncTask<String, Void, B
             return true
         }catch (e: FileNotFoundException){
             manageError(urlConnection)
+            e.printStackTrace()
             return false
         } catch (e: IOException) {
             manageError(urlConnection)
@@ -54,6 +59,9 @@ class NetworkServices (val listener: onTaskListener) : AsyncTask<String, Void, B
         }
 
     }
+
+
+
 
     override fun onPostExecute(result: Boolean?) {
         if (result!!){
@@ -94,29 +102,31 @@ class NetworkServices (val listener: onTaskListener) : AsyncTask<String, Void, B
 
     @Throws(IOException::class, JSONException::class)
     private fun getStructuredRequest(type: SERVICE_TYPE, endpoint: String, id: String): HttpURLConnection {
-        val TIME_OUT = 500
+        val TIME_OUT = 5000
         val urlConnection: HttpURLConnection
         val url: URL?
         if (type === SERVICE_TYPE.FUGITIVOS) { //---------- GET Fugitivos--------------
             url = URL(endpoint)
             urlConnection = url.openConnection() as HttpURLConnection
-            urlConnection.setReadTimeout(TIME_OUT)
-            urlConnection.setRequestMethod("GET")
-            urlConnection.setRequestProperty("Content-Type", "application/json")
+            urlConnection.readTimeout=TIME_OUT
+            urlConnection.requestMethod= GET
+            urlConnection.setRequestProperty(CONTENT_TYPE, TYPE_JSON)
             urlConnection.connect()
         } else { //--------------------- POST Atrapados------------------------
             url = URL(endpoint)
             urlConnection = url.openConnection() as HttpURLConnection
-            urlConnection.setRequestMethod("POST")
-            urlConnection.setReadTimeout(TIME_OUT)
-            urlConnection.setRequestProperty("Content-Type", "application/json")
-            urlConnection.setDoInput(true)
-            urlConnection.setDoOutput(true)
+            urlConnection.requestMethod= POST
+            urlConnection.readTimeout=TIME_OUT
+            urlConnection.setRequestProperty(CONTENT_TYPE, TYPE_JSON)
+            urlConnection.doInput=true
+            urlConnection.doOutput=true
             urlConnection.connect()
-            val `object` = JSONObject()
-            `object`.put("UDIDString", id)
+            //val `object` = JSONObject()
+            //`object`.put("UDIDString", id)
+            val jsonObject=JSONObject()
+            jsonObject.put("UDIDString",id)
             val dataOutputStream = DataOutputStream(urlConnection.getOutputStream())
-            dataOutputStream.write(`object`.toString().toByteArray())
+            dataOutputStream.write(jsonObject.toString().toByteArray())
             dataOutputStream.flush()
             dataOutputStream.close()
         }

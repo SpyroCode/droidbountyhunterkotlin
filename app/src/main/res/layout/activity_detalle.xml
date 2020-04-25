@@ -5,6 +5,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <ImageView
+            android:id= "@+id/pictureFugitive"
+            android:layout_width= "200dp"
+            android:layout_height= "200dp"
+            android:layout_below= "@id/etiquetaMensaje"
+            android:layout_centerHorizontal= "true"
+            android:src= "@android:drawable/ic_menu_gallery" />
     <TextView
         android:id="@+id/etiquetaMensaje"
         android:layout_width="wrap_content"
@@ -23,7 +30,7 @@
         android:text="@string/boton_capturar"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/etiquetaMensaje"
+        android:layout_below="@+id/pictureFugitive"
         android:layout_centerHorizontal="true"
         android:onClick="capturarFugitivoPresionado"/>
 
@@ -38,5 +45,23 @@
         android:layout_below="@+id/botonCapturar"
         android:layout_centerHorizontal="true"
         android:onClick="eliminarFugitivoPresionado"/>
+    <Button
+            android:id= "@+id/botonTomarFoto"
+            android:layout_width= "wrap_content"
+            android:layout_height= "wrap_content"
+            android:text= "@string/boton_foto"
+            android:layout_below= "@+id/botonEliminar"
+            android:layout_centerHorizontal= "true"
+            android:textAppearance= "@style/Base.TextAppearance.AppCompat.Body1"
+            android:onClick= "OnFotoClick" />
+    <Button
+            android:id= "@+id/botonMapa"
+            android:layout_width= "wrap_content"
+            android:layout_height= "wrap_content"
+            android:text= "@string/boton_mapa"
+            android:layout_below= "@+id/botonTomarFoto"
+            android:layout_centerHorizontal= "true"
+            android:textAppearance= "@style/Base.TextAppearance.AppCompat.Body1"
+            android:onClick= "OnMapClick" />
 
 </RelativeLayout>

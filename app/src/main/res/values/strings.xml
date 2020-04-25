@@ -19,8 +19,10 @@
     <string name="boton_capturar">Capturar</string>
     <string name="campo_nombre">Nombre del Fugitivo</string>
     <string name="etiqueta_desarrollo">Desarrollado por:</string>
-    <string name="nombre_desarrollador">Alejandro Rincón</string>
-    <string name="etiqueta_empresa">D.W. Training S.C.</string>
+    <string name="nombre_desarrollador">Efren Almanza Lamas</string>
+    <string name="etiqueta_empresa">SpyroCode</string>
     <string name="etiqueta_mensaje">Mensaje…</string>
+    <string name="boton_foto">Tomar Foto</string>
+    <string name="boton_mapa">Ver Mapa</string>
 
 </resources>

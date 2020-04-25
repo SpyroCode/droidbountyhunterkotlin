@@ -16,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        setSupportActionBar(toolbar)
+        //setSupportActionBar(toolbar)
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
